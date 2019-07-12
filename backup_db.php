@@ -40,16 +40,6 @@ class Db_Tool_Backup
     protected $_db_protocol;
 
     /** 
-     * @var string
-     */
-    protected $_db_user;
-
-    /** 
-     * @var string
-     */
-    protected $_db_passwd;
-
-    /** 
      * @var array
      */
     protected $_previous_count = array();
@@ -140,15 +130,15 @@ class Db_Tool_Backup
         if ($this->_db_protocol) {
             $params[] = '--protocol '.$this->_db_protocol;
         }
-        $params[] = '-u '.$this->_db_user;
-        $params[] = '-p'.$this->_db_passwd;
-
-        $command = "mysqldump $db_name " . implode(' ', $params);
+        
+        $db_cnf_file = dirname(__FILE__).'/.sqlcnf';
+        $db_cnf = '--defaults-extra-file='.$db_cnf_file;
+        $command = "mysqldump $db_cnf $db_name " . implode(' ', $params);
 
         if ($this->_compression) {
             $command .= " | {$this->_compression} > $filename.bz2";
         } else {
-            $command = "mysqldump $db_name " . implode(' ', $params) . " > $filename";
+            $command = "mysqldump $db_cnf $db_name " . implode(' ', $params) . " > $filename";
         }
 
         return system($command);
