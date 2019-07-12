@@ -12,12 +12,12 @@ Download the source code. Depending on your platform, you either use the batch f
 
 A sample config.php is given in the name of `config.sample.php`. copy it as `config.php` on the same directory. Edit `config.php` to configure the following:
 
-* `backup_dir` - the location where you want to save your backup files.
-* `keep_files` - the number of backup files to keep.
+* `backup_dir` - the location where you want to save your backup files
+* `keep_files` - the number of backup files to keep
 * `compression` - (Linux only) - allows backup compression by piping contents to compression tools like `gzip`, `bzip2`, etc.
-* `db_host` - the host name where the database is running.
+* `db_host` - the host name where the database is running
 * `protocol` - defaults to empty string, options include `tcp`, `socket`, etc.
-* `db_names` - an array of database names you want to backup. Make sure your user has access to use mysqldump to these databases.
+* `db_names` - an array of database names you want to backup. Make sure your user has access to use mysqldump to these databases
 
 __IMPORTANT__: Make sure to create first the directories where you want to save all your backup files for each database. For example:
 
@@ -25,7 +25,10 @@ If your backup dir is `D:/backup` and one of your database name is `market`, mak
 
 ## Database User and Password
 
-These are stored in the .sqlcnf file to prevent the details being sent over the CLI.
+These are stored in the .sqlcnf file to prevent the details being sent over the CLI. Edit .sqlcnf to configure the following:
+
+* your_database_user - the user who has dump access to all your listed databases on db_names
+* your_database_password - the database (user) password
 
 __SECURITY NOTE__: .sqlcnf needs to be uploaded with very restricted file permissions on your server so that no-one else can access it. I suggest 6-0-0 or equivalent.
 
