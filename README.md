@@ -17,19 +17,23 @@ A sample config.php is given in the name of `config.sample.php`. copy it as `con
 * `compression` - (Linux only) - allows backup compression by piping contents to compression tools like `gzip`, `bzip2`, etc.
 * `db_host` - the host name where the database is running.
 * `protocol` - defaults to empty string, options include `tcp`, `socket`, etc.
-* `db_user` - the user who has dump access to all your listed databases on db_names.
-* `db_passwd` - the database password. 
 * `db_names` - an array of database names you want to backup. Make sure your user has access to use mysqldump to these databases.
 
 __IMPORTANT__: Make sure to create first the directories where you want to save all your backup files for each database. For example:
 
 If your backup dir is `D:/backup` and one of your database name is `market`, make sure you create first `D:/backup/market`. This applies to all databases you want to include.
 
+## Database User and Password
+
+These are stored in the .sqlcnf file to prevent the details being sent over the CLI.
+
+__SECURITY NOTE__: .sqlcnf needs to be uploaded with very restricted file permissions on your server so that no-one else can access it. I suggest 6-0-0 or equivalent.
+
 ## Scheduling 
 
 When scheduling the backup task, choose either `autobackup.sh` or `autobackup.bat` depending on your platform. For Linux, you can add the task via cron by adding this on your crontab. 
 
-    0 0 * * *   /home/user/path/to/script/autobackup.sh >/dev/null 2>&1 
+    0 0 * * *   /home/user/path/to/script/autobackup.sh
 
 That effectively schedules backup every midnight.
 
